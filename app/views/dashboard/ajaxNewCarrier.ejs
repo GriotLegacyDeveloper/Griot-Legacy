@@ -1,0 +1,24 @@
+<table class="table m-0">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Country</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (carrierArr.length > 0) { 
+    for(let carrier of carrierArr) { %>
+    <tr>
+      <td><%= carrier.name%></td>
+      <td><%= carrier.country%></td>
+      <td><span class="badge badge-success"><%= carrier.status %></span></td>
+
+    </tr>
+    <% } } else { %>
+    <tr>
+      <td colspan="3"> No data available</td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

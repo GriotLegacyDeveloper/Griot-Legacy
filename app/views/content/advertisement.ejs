@@ -1,0 +1,199 @@
+<% layout('layout/afterlogin') -%>
+
+  <body class="hold-transition sidebar-mini ">
+    <div class="wrapper">
+
+      <!-- Navbar -->
+      <% include ../layout/navbar %>
+
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <% include ../layout/sidebar %>
+
+          <!-- Content Wrapper. Contains page content -->
+          <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h1>Advertisement List</h1>
+                  </div>
+                </div>
+              </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+              <div class="row">
+                <div class="col-12">
+                  <!-- /.card -->
+
+                  <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body" style="overflow: auto; position: relative;">
+                      <table id="restaurantList" class="table table-bordered table-striped" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Company name</th>
+                            <th>Contact person</th>
+                            <th>Email address</th>
+                            <th>Phone number</th>
+                            <th>Physical address</th>
+                            <th>Purpose of advertisement</th>
+                            <th>Description</th>
+                            <th>Target Audience</th>
+                            <th>Image</th>
+                            <th>Link</th>
+                            <th>Valid Form</th>
+                            <th>Valid Till</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <%for(let data of ads) { %>
+                            <tr id="">
+                              <td>
+                                <%= data.title %>
+                              </td>
+                              <td>
+                                <%= data.companyName %>
+                              </td>
+                              <td>
+                                <%= data.contactPerson %>
+                              </td>
+                              <td>
+                                <%= data.emailAddress %>
+                              </td>
+                              <td>
+                                <%= data.phoneNumber %>
+                              </td>
+                              <td>
+                                <%= data.physicalAddress %>
+                              </td>
+                              <td>
+                                <%= data.purposeOfAdvertisement %>
+                              </td>
+                              <td>
+                                <%=data.description%>
+                              </td>
+                              <td>
+                                <%= data.targetAudience %>
+                              </td>
+                              <td> <img src="<%=data.image%>" style="height: 100px; width: 150px;" alt="image"> </td>
+                              <td>
+                                <%= data.link %>
+                              </td>
+                              <td>
+                                <%= data.validFrom %>
+                              </td>
+                              <td>
+                                <%= data.validTill %>
+                              </td>
+                              <td>
+                                <%= data.status%>
+                              </td>
+
+                              <td class="advertisementStatus">
+                                <% if(data.status=='PENDING' ) { %>
+                                  <a href="/content/adStatus?status=APPROVED&id=<%= data._id %>"
+                                    class="btn btn-block btn-success">Approve</a>
+                                  <a href="/content/adStatus?status=REJECTED&id=<%= data._id %>&paymentIntentId=<%=data.paymentIntentId%>&amount=<%=data.amount%>&type=<%=data.paymentType%>"
+                                    class="btn btn-block btn-danger">Reject</a>
+                                  <% } %>
+                              </td>
+
+                            </tr>
+                            <% } %>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </section>
+            <!-- /.content -->
+          </div>
+          <!-- /.content-wrapper -->
+          <% include ../layout/footer %>
+
+    </div>
+    <!-- ./wrapper -->
+
+
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap-notify.min.js"></script>
+    <!-- DataTables -->
+    <script src="../../plugins/datatables/jquery.dataTables.js"></script>
+    <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- jquery-validation -->
+    <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../js/adminlte.min.js"></script>
+    <!-- Toastr -->
+    <script src="../../plugins/toastr/toastr.min.js"></script>
+
+    <script type="text/javascript">
+
+      $(function () {
+
+
+        var table = $('#restaurantList').removeAttr('width').DataTable({
+          fixedHeader: true,
+          scrollY: "600px",
+          scrollX: true,
+          scrollCollapse: true,
+          paging: false,
+          searching: true,
+          ordering: false,
+
+          // columnDefs: [
+          //     { width: 200, targets: 0 }
+          // ],
+          fixedColumns: {
+            leftColumns: 0,
+            rightColumns: 1
+          }
+        });
+
+
+
+      });
+
+
+    </script>
+
+
+    <% if(messages.msgLog){ %>
+      <script>
+        $(function () {
+          $.notify({
+            // options
+            message: '<%= messages.msgLog %>'
+          }, {
+            // settings
+            type: '<%= messages.msgType %>',
+            spacing: 10,
+            z_index: 1035,
+            animate: {
+              enter: 'animated fadeInDown',
+              exit: 'animated fadeOutUp'
+            }
+          });
+        });
+      </script>
+      <% } %>
+
+  </body>

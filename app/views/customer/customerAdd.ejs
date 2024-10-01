@@ -1,0 +1,154 @@
+<% layout('layout/afterlogin') -%>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+
+    <!-- Navbar -->
+    <% include ../layout/navbar %>
+
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <% include ../layout/sidebar %>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Add Customer</h1>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+              <!-- jquery validation -->
+              <div class="card card-primary">
+
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" id="advertisement" method="post" action="/customer/createCustomer" enctype="multipart/form-data">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Full Name</label>
+                      <input type="text" name="fullName" class="form-control" id="exampleInputEmail1" placeholder="Enter FullName" %>">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" %>">
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-sm-6">
+                        <label for="exampleInputEmail1">Password</label>
+                        <input type="text" name="pass1" class="form-control" id="exampleInputEmail1" placeholder="Enter Password" %>">
+                      </div>
+                      <div class="form-group col-sm-6">
+                        <label for="exampleInputEmail1">Confirm Password</label>
+                        <input type="text" name="pass2" class="form-control" id="exampleInputEmail1" placeholder="Re-enter Password" %>">
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-md-6">
+                        <label for="exampleInputEmail1">D.O.B</label>
+                        <input type="date" name="dob" class="form-control" id="exampleInputEmail1">
+                      </div>
+                      <div class="col-sm-2">
+                        <label for="exampleInputEmail1">Country Code</label>
+                        <input type="number" name="countryCode" class="form-control" id="exampleInputEmail1" placeholder="+91" %>">
+                      </div>
+                      <div class="col-sm-4">
+                        <label for="exampleInputEmail1">Phone</label>
+                        <input type="number" name="phone" class="form-control" id="exampleInputEmail1" placeholder="Enter Phone" %>">
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-sm-6">
+                        <label for="userName">Gender</label>
+                        <select class="custom-select" id="inputGroupSelect04" name="gender">
+                          <option selected>Choose</option>
+                          <option value="MALE">Male</option>
+                          <option value="FEMALE">Female</option>
+                          <option value="NON_BINARY">Non Binary</option>
+                          <option value="PREFER_NOT_TO_SAY">Prefer not to say</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <label for="userName">Relationship</label>
+                        <select class="custom-select" id="inputGroupSelect04" name="relationship">
+                          <option selected>Choose</option>
+                          <option value="SINGLE">SINGLE</option>
+                          <option value="RELATIONSHIP">IN A RELATIONSHIP</option>
+                          <option value="MARRIED">MARRIED</option>
+                          <option value="DIVORCED">DIVORCED</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Upload Profile Image</label>
+                      <input type="file" name="profileImage" class="form-control" id="exampleInputEmail1">
+                    </div>
+                  </div>
+
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card -->
+            </div>
+            <!--/.col (left) -->
+          </div>
+          <!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <% include ../layout/footer %>
+
+  </div>
+  <!-- ./wrapper -->
+
+
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/bootstrap-notify.min.js"></script>
+  <!-- jquery-validation -->
+  <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
+  <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../js/adminlte.min.js"></script>
+
+  <% if(messages.msgLog){ %>
+    <script>
+      $(function () {
+        $.notify({
+          // options
+          message: '<%= messages.msgLog %>'
+        }, {
+          // settings
+          type: '<%= messages.msgType %>',
+          z_index: 1035,
+          spacing: 10,
+          animate: {
+            enter: 'animated fadeInDown',
+            exit: 'animated fadeOutUp'
+          }
+        });
+      });
+    </script>
+    <% } %>
+
+
+</body>

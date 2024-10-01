@@ -1,0 +1,31 @@
+<table class="table m-0">
+  <thead>
+    <tr>
+      <th>Shipment No</th>
+      <th>Shipper & Carrier</th>
+      <th>Pickup & Delivery</th>
+      <th>Price</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(allShipment.length > 0) { 
+      for(let shipment of allShipment) {%>
+    <tr>
+      <td><a href="/shipment/shipmentDetails?id=<%= shipment.id %>"><%= shipment.shipmentNo%></a>
+      </td>
+      <td><b>Shipper:</b> <%= shipment.shipperInfo.companyName%> <br>
+        <b>Carrier:</b> <%= shipment.carrierInfo.companyName%></td>
+      <td><b>Pickup:</b> <%= shipment.pickupCountry%> <br>
+        <b>Delivery:</b> <%= shipment.destinationCountry%></td>
+      <td>€<%= shipment.totalPrice%></td>
+      <td><span class="badge badge-success"><%= shipment.shipmentStatus %></span></td>
+    </tr>
+    <% } } else { %>
+    <tr>
+      <td colspan="3"> No data available</td>
+    </tr>
+    <% } %>
+
+  </tbody>
+</table>

@@ -1,0 +1,232 @@
+<% layout('layout/afterlogin') -%>
+
+<head>
+  <style>
+    img {
+          width: 50%;
+          border: 5px solid #fff;
+          padding: 6px;
+          background: #fff;
+          box-shadow: 0 0 3px #ccc;
+          margin-bottom: 20px;
+          box-sizing: border-box;
+      }
+  </style>
+</head>
+
+<body class="hold-transition sidebar-mini ">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <% include ../layout/navbar %>
+
+         <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <% include ../layout/sidebar %>
+
+        <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Post of <%= user.fullName%></h1>
+              </div>
+              <div class="col-sm-3"></div>
+              <div class="col-sm-3">
+                <h1>Total Posts : <%= postData.length %></h1>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Post Section -->
+
+        
+         
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Album Name</th>
+              <th scope="col">Post Caption</th>
+              <th scope="col">Thumbnail</th>
+              <th scope="col">Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <% for( let post of postData ) { %>
+              <tr>
+                <% if (post.album.length > 0) { %>
+                  <td><a href="/customer/getPost?id=<%= post._id %> " class="list-group-item list-group-item-action">
+                    <%= post.album[0]  %> 
+                  </a></td>
+                <% } else {%>
+                  <td><a href="/customer/getPost?id=<%= post._id %> " class="list-group-item list-group-item-action">
+                    No name found!
+                  </a></td>
+                <% } %>
+                <td>
+                  <a href="/customer/getPost?id=<%= post._id %> " class="list-group-item list-group-item-action">
+                    <%= post.caption  %> 
+                  </a>
+                </td>
+                <td>
+                  <% if (post.type.includes('VIDEO')) {%>
+                    <% for (let thumb of post.thumb) { %>
+                      <% if(thumb != '') { %>
+                        <img src="<%= thumb%>" height="200" alt="">
+                      <% } %>
+                    <% } %>      
+                  <% } else if(post.type.includes('IMAGE')) {%>
+                    <img src="<%= post.file[0]%>" height="200" alt="">
+                  <% } %>
+
+                </td>
+                <td>
+                  <a href="/customer/getPost?id=<%= post._id %> " class="btn btn-success"> View Post</a>
+                </td>
+              </tr>
+
+            <% } %>
+            
+          </tbody>
+        </table> 
+
+    
+    </div>
+  <footer>
+    <% include ../layout/footer %>
+  </footer>
+
+     <!-- jQuery -->
+     <script src="../../plugins/jquery/jquery.min.js"></script>
+     <!-- Bootstrap 4 -->
+     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+     <script src="../../js/bootstrap-notify.min.js"></script>
+     <!-- DataTables -->
+   
+     <!-- <script src="../../plugins/datatables/jquery.dataTables.js"></script>
+     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+     <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script> -->
+     <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+     <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+     <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+     <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap4.min.js"></script>
+   
+     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+     <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+     <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+     <!-- <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script> -->
+   
+     <script src="../../js/buttons.html5.js"></script>
+     <!-- jquery-validation -->
+     <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
+     <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+     <!-- AdminLTE App -->
+     <script src="../../js/adminlte.min.js"></script>
+     <!-- Toastr -->
+     <script src="../../plugins/toastr/toastr.min.js"></script>
+     <script src="https://momentjs.com/downloads/moment.min.js"></script>
+   
+     <script type="text/javascript">
+       $(function() {
+   
+         var table = $('#customerList').removeAttr('width').DataTable({
+           fixedHeader: true,
+           scrollY: "600px",
+           scrollX: true,
+           scrollCollapse: false,
+           paging: false,
+           searching: true,
+           ordering: false,
+   
+           // columnDefs: [
+           //     { width: 200, targets: 0 }
+           // ],
+           fixedColumns: true
+         });
+   
+       });
+   
+       function filterCustomer() {
+         var chngRes = $('#chngRes').val();
+   
+         window.location.replace(`/customer/customerList?filter=${chngRes}`);
+   
+   
+   
+         //alert(chngRes);
+       }
+   
+       function getLogHistory(customerId) {
+   
+         $("#modal-xl").modal('show');
+   
+         $.ajax({
+           url: "/customer/getLogHistory",
+           type: "POST",
+           data: {
+             customerId: customerId
+           },
+           success: function(data, textStatus, jqXHR) {
+   
+             $(".log-content").html(data);
+   
+             $(".loader").hide();
+           },
+           error: function(jqXHR, textStatus, errorThrown) {
+             toastr.error(data.msg)
+           }
+         });
+   
+       }
+   
+       function deleteCustomer(customerId) {
+         if (confirm("Do you want to delete this customer?")) {
+           // your deletion code
+   
+           window.location.replace(`/customer/customerDelete?customer=${customerId}`);
+         }
+         return false;
+       }
+   
+   
+       function disableCustomer(customerId, status) {
+         console.log('status', status);
+         if (status == true) {
+           var st = 'enable'
+         } else {
+           var st = 'disable'
+         }
+         if (confirm(`Do you want to ${st} this customer?`)) {
+           // your deletion code
+   
+           window.location.replace(`/customer/customerDisable?customer=${customerId}&status=${status}`);
+         }
+         return false;
+       }
+     </script>
+     <% if(message){ %>
+     <script>
+       $(function() {
+         $.notify({
+           // options
+           message: '<%= message %>'
+         }, {
+           // settings
+           type: '<%= messages.msgType %>',
+           spacing: 10,
+           z_index: 1035,
+           animate: {
+             enter: 'animated fadeInDown',
+             exit: 'animated fadeOutUp'
+           }
+         });
+       });
+     </script>
+     <% } %>
+</body>

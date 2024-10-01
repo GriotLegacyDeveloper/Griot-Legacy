@@ -1,0 +1,290 @@
+<% layout('layout/afterlogin') -%>
+
+
+<style>
+  #myChart{
+    background-image: linear-gradient(120deg, #f8fafa 0%, #f4fafa 100%);
+  }
+  
+</style>
+<body class="hold-transition sidebar-mini ">
+  <div class="wrapper">
+    <!-- Navbar -->
+    <% include ../layout/navbar %>
+    <!-- /.navbar -->
+    <!-- Main Sidebar Container -->
+    <% include ../layout/sidebar %>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1>Dashboard</h1>
+                </div>
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-4 col-6">
+                <div class="small-box bg-danger">
+                  <div class="inner">
+                    <h3>
+                      <%- allUsers%>
+                    </h3>
+                    <p>Total Customers</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                  </div>
+                  <a href="/customer/customerList" class="small-box-footer">More info <i
+                      class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-7 col-4">
+                <div class="small-box">
+                  <div class="inner">
+                    <canvas id="myChart"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-lg-5 col-3">
+                <div class="small-box" style="height: 312px;">
+                  <div class="inner">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+
+          <!-- <div class="card-body">
+            <div class="row">
+              
+            </div>
+          </div> -->
+          
+    </div>
+    
+      
+    </div>
+    <!-- /.content-wrapper -->
+    <% include ../layout/footer %>
+
+  </div>
+  <!-- ./wrapper -->
+
+
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/bootstrap-notify.min.js"></script>
+  <!-- DataTables -->
+  <script src="../../plugins/datatables/jquery.dataTables.js"></script>
+  <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+  <!-- jquery-validation -->
+  <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
+  <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../js/adminlte.min.js"></script>
+  <!-- Toastr -->
+  <script src="../../plugins/toastr/toastr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+
+
+  <script type="text/javascript">
+
+    $(function () {
+
+
+      var table = $('#restaurantList').removeAttr('width').DataTable({
+        fixedHeader: true,
+        scrollY: "600px",
+        scrollX: false,
+        scrollCollapse: false,
+        paging: false,
+        searching: true,
+        ordering: false,
+
+        // columnDefs: [
+        //     { width: 200, targets: 0 }
+        // ],
+        fixedColumns: true
+      });
+
+
+
+    });
+
+
+  </script>
+
+
+  <% if(messages.msgLog){ %>
+  <script>
+    $(function () {
+      $.notify({
+        // options
+        message: '<%= messages.msgLog %>'
+      }, {
+        // settings
+        type: '<%= messages.msgType %>',
+        spacing: 10,
+        z_index: 1035,
+        animate: {
+          enter: 'animated fadeInDown',
+          exit: 'animated fadeOutUp'
+        }
+      });
+    });
+  </script>
+  <% } %>
+
+
+  
+
+  <%if(data){ %>
+    <script>
+      var ctx = document.getElementById("myChart").getContext("2d");
+
+        var xValues = []
+        '<% for(let i = 0; i<dateArr.length; i++) {%>'
+            xValues.push('<%- dateArr[i]%>')
+        '<% }%>'
+
+        const last7 = xValues.slice(-7)
+
+        var yValues = []
+        '<% for(let j=0; j<userCountArr.length; j++) {%>'
+            yValues.push('<%- userCountArr[j]%>')
+        '<% } %>'
+
+        var gradient = ctx.createLinearGradient(0, 0, 0, 600);
+        gradient.addColorStop(0, 'rgba(238,174,202,0.39)');   
+        gradient.addColorStop(1, 'rgba(148,187,233,1)');
+
+        new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+            label: 'Number of users', 
+            data: yValues,
+            borderColor: 'rgb(148,187,233)',
+            tension: 0.5,
+            backgroundColor : gradient, // Put the gradient here as a fill color
+            strokeColor : "#ff6c23",
+            pointColor : "#fff",
+            pointStrokeColor : "#ff6c23",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "#ff6c23",
+        }]
+    },
+    options: {
+      barThickness: 1,
+      scales: {
+        xAxes: [{
+          stacked: true,
+          ticks: {
+            fontColor: this.tickColor
+          },
+          gridLines: {
+            drawOnChartArea: false
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Date'
+          }
+        }],
+
+        yAxes: [{
+          stacked: true,
+          ticks: {
+            fontColor: this.tickColor,
+            min: 0,
+            max: 25,
+            stepSize: 5,
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Number of Users '
+          }
+        }]
+      }
+    }
+});
+    </script>
+
+  <% } %>
+
+ <script>
+    var ctx = document.getElementById("myPieChart").getContext("2d");
+    
+    var data = {
+      datasets:[
+        {
+          label: "App Usage",
+          data: [10,50,25,70,40],
+          backgroundColor: [
+          "#DEB887",
+          "#A9A9A9",
+          "#DC143C",
+          "#F4A460",
+          "#2E8B57"
+        ],
+        borderColor: [
+          "#CDA776",
+          "#989898",
+          "#CB252B",
+          "#E39371",
+          "#1D7A46"
+        ],
+        borderWidth: [1, 1, 1, 1, 1]
+        }
+      ]
+    };
+
+    //options
+    var options = {
+      responsive: true,
+      title: {
+        display: true,
+        position: "top",
+        text: "App Usage",
+        fontSize: 18,
+        fontColor: "#111"
+      },
+      legend: {
+        display: true,
+        position: "bottom",
+        labels: {
+          fontColor: "#333",
+          fontSize: 16
+        }
+      }
+    };
+
+    var chart = new Chart(ctx,{
+      type: "pie",
+      data: data,
+      options: options
+    });
+ </script>
+
+
+
+</body>

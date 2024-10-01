@@ -1,0 +1,22 @@
+<table class="table m-0">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Total Shipment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(userArr.length > 0) { 
+      for(let user of userArr) { %>
+    <tr>
+      <td><%= user.companyName%></td>
+      <td><%= user.count%></td>
+    </tr>
+    <% } } else { %>
+    <tr>
+      <td colspan="3"> No data available</td>
+    </tr>
+    <% } %>
+
+  </tbody>
+</table>

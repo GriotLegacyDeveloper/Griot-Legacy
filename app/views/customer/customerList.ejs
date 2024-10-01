@@ -1,0 +1,304 @@
+<% layout('layout/afterlogin') -%>
+<!-- <style>
+  #add{
+    float: right;
+  }
+</style> -->
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+
+<body class="hold-transition sidebar-mini ">
+  <div class="wrapper">
+
+    <!-- Navbar -->
+    <% include ../layout/navbar %>
+
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <% include ../layout/sidebar %>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Customer List
+              </h1>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-2" id="add">
+              <a href="/customer/addNewCustomer"  class="btn btn-block btn-primary">
+                Add New User
+              </a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="row">
+          <div class="col-12">
+            <!-- /.card -->
+
+            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="customerList" class="table table-bordered table-striped" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+                      <th>Date of Birth</th>
+                      <th>Registered On</th>
+                      <th>Last Login</th>
+                      <th>Status</th>
+                      <th>Action</th>
+
+                      <!-- <th class="no-sort">Action</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (customers.length> 0){%>
+                    <% for (let customer of customers){ if(customer.isDisable==true ) { var
+                              backClr='background-color: rgb(248, 170, 150);' ; } else { var backClr='' ; } %>
+
+                    <% if (customer.isDeleted != true) {%>
+
+                    <tr id="id_<%= customer._id %>">
+                      <td>
+                        <%= customer.fullName %>
+                      </td>
+                      <td>
+                        <%= customer.countryCode %>
+                        <%= customer.phone %>
+                      </td>
+                      <td>
+                        <%= customer.email %>
+                      </td>
+                      <td>
+                        <% if(customer.dateOfBirth !=undefined) { const monthNames=["January", "February"
+                                    , "March" , "April" , "May" , "June" , "July" , "August" , "September" , "October"
+                                    , "November" , "December" ]; const dateObj=new Date(customer.dateOfBirth); const
+                                    month=monthNames[dateObj.getMonth()]; const
+                                    day=String(dateObj.getDate()).padStart(2, '0' ); const year=dateObj.getFullYear();
+                                    var output=month + '\n' + day + ',' + year; } else { var output='' } %>
+
+                        <%= output %>
+
+                      </td>
+                      <td>
+                        <% var date = moment(customer.createdAt); %>
+                        <%= date.tz('America/Los_Angeles', true) %>
+                        
+                      </td>
+                      <td>
+                        <% var date = moment(customer.lastLogin); %>
+                        <%= date.tz('America/Los_Angeles') %>
+                      </td>
+                      <td class="customerStatus">
+                        <% if (customer.status=='ACTIVE' ){%>
+                        <a href="/customer/customerStatus?status=ACTIVE&id=<%= customer._id %>" style="color: aliceblue;" class="btn btn-block btn-success">
+                          <%= customer.status%>
+                        </a>
+                        <% } else if(customer.status=='WAITING FOR APPROVAL' ) {%>
+                        <a href="/customer/customerStatus?status=<%= customer.status%>&id=<%= customer._id %>" style="color: aliceblue;" class="btn btn-block btn-info">
+                          <%= customer.status%>
+                        </a>
+                        <% }else { %>
+                        <a href="/customer/customerStatus?status=<%= customer.status%>&id=<%= customer._id %>" style="color: aliceblue; cursor: not-allowed;" class="btn btn-block btn-danger">
+                          <%= customer.status%>
+                        </a>
+                        <% } %>
+                      </td>
+
+                      <td>
+                        <a href="/customer/customerViewPost?id=<%= customer._id %>"><i style="color: green;cursor: pointer;" class="fa fa-eye" title="View User Post" aria-hidden="true"></i> </a>
+                        <a href="/customer/editCustomerPost?id=<%= customer._id %>"><i style="color: green;cursor: pointer;" class="fa fa-edit" title="Edit User Post" aria-hidden="true"></i> </a>
+                        <a href="/customer/customerDelete?id=<%= customer._id %>"><i style="color: #dc3545;cursor: pointer;" class="fa fa-trash" title="Delete User Post" aria-hidden="true"></i> </a>
+                      </td>
+
+                    </tr>
+
+                    <% } %>
+
+                    <% } %>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <% include ../layout/footer %>
+
+  </div>
+
+  <div class="modal fade" id="modal-xl">
+    <div class="modal-dialog  modal-xl">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Customer Log History</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body log-content"></div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <!-- ./wrapper -->
+
+
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/bootstrap-notify.min.js"></script>
+  <!-- DataTables -->
+
+  <!-- <script src="../../plugins/datatables/jquery.dataTables.js"></script>
+  <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script> -->
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap4.min.js"></script>
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+  <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+  <!-- <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script> -->
+
+  <script src="../../js/buttons.html5.js"></script>
+  <!-- jquery-validation -->
+  <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
+  <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../js/adminlte.min.js"></script>
+  <!-- Toastr -->
+  <script src="../../plugins/toastr/toastr.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+
+      var table = $('#customerList').removeAttr('width').DataTable({
+        fixedHeader: true,
+        scrollY: "600px",
+        scrollX: true,
+        scrollCollapse: false,
+        paging: false,
+        searching: true,
+        ordering: false,
+
+        // columnDefs: [
+        //     { width: 200, targets: 0 }
+        // ],
+        fixedColumns: true
+      });
+
+    });
+
+    function filterCustomer() {
+      var chngRes = $('#chngRes').val();
+
+      window.location.replace(`/customer/customerList?filter=${chngRes}`);
+
+
+
+      //alert(chngRes);
+    }
+
+    function getLogHistory(customerId) {
+
+      $("#modal-xl").modal('show');
+
+      $.ajax({
+        url: "/customer/getLogHistory",
+        type: "POST",
+        data: {
+          customerId: customerId
+        },
+        success: function(data, textStatus, jqXHR) {
+
+          $(".log-content").html(data);
+
+          $(".loader").hide();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          toastr.error(data.msg)
+        }
+      });
+
+    }
+
+    function deleteCustomer(customerId) {
+      if (confirm("Do you want to delete this customer?")) {
+        // your deletion code
+
+        window.location.replace(`/customer/customerDelete?customer=${customerId}`);
+      }
+      return false;
+    }
+
+
+    function disableCustomer(customerId, status) {
+      console.log('status', status);
+      if (status == true) {
+        var st = 'enable'
+      } else {
+        var st = 'disable'
+      }
+      if (confirm(`Do you want to ${st} this customer?`)) {
+        // your deletion code
+
+        window.location.replace(`/customer/customerDisable?customer=${customerId}&status=${status}`);
+      }
+      return false;
+    }
+  </script>
+  <% if(messages.msgLog){ %>
+  <script>
+    $(function() {
+      $.notify({
+        // options
+        message: '<%= messages.msgLog %>'
+      }, {
+        // settings
+        type: '<%= messages.msgType %>',
+        spacing: 10,
+        z_index: 1035,
+        animate: {
+          enter: 'animated fadeInDown',
+          exit: 'animated fadeOutUp'
+        }
+      });
+    });
+  </script>
+  <% } %>
+
+</body>

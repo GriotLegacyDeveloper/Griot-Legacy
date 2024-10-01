@@ -1,0 +1,269 @@
+<% layout('layout/afterlogin') -%>
+
+  <style>
+      .commntFrm {
+          display: flex;
+          margin-left: 50px;
+          justify-content: space-between;
+      }
+
+      .commntFleft {
+          width: 50%;
+          padding: 20px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+      }
+
+      .commntFleft img {
+          width: 100%;
+          border: 5px solid #fff;
+          padding: 6px;
+          background: #fff;
+          box-shadow: 0 0 3px #ccc;
+          margin-bottom: 20px;
+          box-sizing: border-box;
+      }
+
+      .commntFleft video,
+      .commntFleft iframe {
+          width: 100%;
+          border: 5px solid #fff;
+          padding: 6px;
+          background: #fff;
+          box-shadow: 0 0 3px #ccc;
+          margin-bottom: 20px;
+          box-sizing: border-box;
+      }
+
+      .commentRgt {
+          width: 49%;
+          padding: 25px;
+          background: #eee;
+          box-sizing: border-box;
+      }
+
+      .commentRgt p {
+          margin-bottom: 15px;
+          font-size: 16px;
+          color: #525252;
+      }
+
+      .commentRgt p strong {
+          color: #000;
+          padding-right: 10px;
+          box-sizing: border-box;
+      }
+
+      .commentRgt button {
+          width: 100%;
+          border: none;
+          outline: none;
+          border-radius: 5px;
+          text-align: center;
+          color: #fff;
+          font-size: 15px;
+          font-weight: 500;
+          padding: 8px 20px;
+          background: #ff0000;
+          cursor: pointer;
+      }
+
+      .commentRgt button:hover {
+          background: #000;
+      }
+
+      .commentRgt h6 {
+          font-size: 15px;
+          color: #333;
+          padding-bottom: 10px;
+          margin: 0;
+      }
+
+  </style>
+
+<body class="hold-transition sidebar-mini ">
+<div class="wrapper">
+    <!-- Navbar -->
+    <% include ../layout/navbar %>
+    <!-- /.navbar -->
+
+   <!-- Main Sidebar Container -->
+   <% include ../layout/sidebar %>
+
+  <div class="content-wrapper">
+   <div class="commntFrm">
+    <div class="commntFleft ">
+      <% for( let img = 0; img < imageData.length; img++ ) { %>
+            <% if (imageData[img].type == 'IMAGE') { %>
+              <div class="comntImgfield"><img src="<%= imageData[img].file %> " /></div>
+            <% } else { %>
+              <div class="comntVideofield">
+                <video width="" height="232" controls frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                  <source src="<%= imageData[img].file %> " type="video/mp4">
+                </video>
+            </div>
+            <% } %>
+      <% } %>
+        <!-- <div class="comntImgfield"><img src="seen.jpg" /></div> -->
+        <!-- <div class="comntVideofield">
+            <iframe width="" height="315" src="https://www.youtube.com/embed/_SzQEh8Z0xQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div> -->
+    </div>
+    <div class="commentRgt"> 
+        <h6><%= currentPost.caption %> </h6>
+        <p><strong>Total Likes :</strong><span><%= currentPost.likes.length %></span></p>
+        <p><strong>Total Comments :</strong><span><%= currentPost.comments.length %></span></p>
+        <h2>Comments</h2>
+          <hr>
+          <% for( let i = 0; i < cUser.length; i++ ) { %>
+              <% for( let j = 0; j < comments.length; j++ ) { %>
+                  <% if (cUser[i].comment == comments[j].comment) { %>
+                   <div class="float-left"><b><%= cUser[i].userName[0] %> :</b></div>
+                   <div class="float-rigth"><%= cUser[i].comment %> </div>
+                   <br>
+                  <% } %>
+              <% } %>
+          <% } %>
+          <% if (currentPost.isBlocked == false || currentPost.isBlocked == undefined ){%>
+            <a href="/customer/blockPost?blocked=false&id=<%= currentPost._id %>&userId=<%= currentPost.userId%>" style="color: aliceblue;" class="btn btn-block btn-danger">
+              Block Post
+            </a>
+            <% }else { %>
+            <a href="/customer/blockPost?blocked=true&id=<%= currentPost._id %>&userId=<%= currentPost.userId%>" style="color: aliceblue; cursor: not-allowed;" class="btn btn-block btn-success">
+              Unblock Post
+            </a>
+            <% } %>
+    </div>
+</div>
+  </div>
+</div>
+<% include ../layout/footer %>
+    
+     <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/bootstrap-notify.min.js"></script>
+  <!-- DataTables -->
+
+  <!-- <script src="../../plugins/datatables/jquery.dataTables.js"></script>
+  <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script> -->
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap4.min.js"></script>
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+  <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+  <!-- <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script> -->
+
+  <script src="../../js/buttons.html5.js"></script>
+  <!-- jquery-validation -->
+  <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
+  <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../js/adminlte.min.js"></script>
+  <!-- Toastr -->
+  <script src="../../plugins/toastr/toastr.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+
+      var table = $('#customerList').removeAttr('width').DataTable({
+        fixedHeader: true,
+        scrollY: "600px",
+        scrollX: true,
+        scrollCollapse: false,
+        paging: false,
+        searching: true,
+        ordering: false,
+
+        // columnDefs: [
+        //     { width: 200, targets: 0 }
+        // ],
+        fixedColumns: true
+      });
+
+    });
+
+    function filterCustomer() {
+      var chngRes = $('#chngRes').val();
+
+      window.location.replace(`/customer/customerList?filter=${chngRes}`);
+
+
+
+      //alert(chngRes);
+    }
+
+    function getLogHistory(customerId) {
+
+      $("#modal-xl").modal('show');
+
+      $.ajax({
+        url: "/customer/getLogHistory",
+        type: "POST",
+        data: {
+          customerId: customerId
+        },
+        success: function(data, textStatus, jqXHR) {
+
+          $(".log-content").html(data);
+
+          $(".loader").hide();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          toastr.error(data.msg)
+        }
+      });
+
+    }
+
+    function deleteCustomer(customerId) {
+      if (confirm("Do you want to delete this customer?")) {
+        // your deletion code
+
+        window.location.replace(`/customer/customerDelete?customer=${customerId}`);
+      }
+      return false;
+    }
+
+
+    function disableCustomer(customerId, status) {
+      console.log('status', status);
+      if (status == true) {
+        var st = 'enable'
+      } else {
+        var st = 'disable'
+      }
+      if (confirm(`Do you want to ${st} this customer?`)) {
+        // your deletion code
+
+        window.location.replace(`/customer/customerDisable?customer=${customerId}&status=${status}`);
+      }
+      return false;
+    }
+  </script>
+  <% if(messages.msgLog){ %>
+  <script>
+    $(function() {
+      $.notify({
+        // options
+        message: '<%= messages.msgLog %>'
+      }, {
+        // settings
+        type: '<%= messages.msgType %>',
+        spacing: 10,
+        z_index: 1035,
+        animate: {
+          enter: 'animated fadeInDown',
+          exit: 'animated fadeOutUp'
+        }
+      });
+    });
+  </script>
+  <% } %>
+</body>

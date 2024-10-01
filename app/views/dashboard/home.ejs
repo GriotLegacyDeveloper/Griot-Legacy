@@ -1,0 +1,553 @@
+<% layout('layout/afterlogin') -%>
+<!-- Daterange picker -->
+<link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+
+    <!-- Navbar -->
+    <% include ../layout/navbar %>
+
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <% include ../layout/sidebar %>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Dashboard</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+              </ol>
+            </div><!-- /.col -->
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+
+          <!-- /.row -->
+
+          <!-- /.row -->
+
+          <!-- Main row -->
+          <div class="row">
+            <div class="col-md-4">
+              <!-- Info Boxes Style 2 -->
+              <!-- /.info-box -->
+              <!-- /.card -->
+
+              <!-- PRODUCT LIST -->
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Shipment with Issues</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <div class="table-responsive" style="overflow-y:auto;
+                  max-height:400px;">
+                    <table class="table m-0">
+                      <thead>
+                        <tr>
+                          <th>Shipment No</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if (issueReported.length > 0) { 
+                          for(let issue of issueReported) { %>
+                        <tr>
+                          <td><a href="/shipment/shipmentDetails?id=<%= issue._id %>"><%= issue.shipmentNo%></a></td>
+                          <td><span class="badge badge-info"><%= issue.shipmentStatus%></span></td>
+
+                        </tr>
+                        <% } } else { %>
+                        <tr>
+                          <td colspan="3"> No data available</td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- /.card-footer -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- Left col -->
+
+            <!-- /.col -->
+            <div class="col-md-8">
+              <div class="card">
+                <div class="row">
+                  <div class="col-md-6">
+                    <!-- Info Boxes Style 2 -->
+                    <!-- /.info-box -->
+                    <!-- /.card -->
+
+                    <!-- PRODUCT LIST -->
+                    <div class="card-header">
+                      <h3 class="card-title">New Carrier</h3>
+
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-primary btn-sm daterange-carrier" data-toggle="tooltip"
+                          title="Date range">
+                          <i class="far fa-calendar-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                      <div class="table-responsive new-carrier" style="overflow-y:auto;
+                  max-height:400px; overflow-x: hidden;">
+                        <table class="table m-0">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Country</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% if (carrierArr.length > 0) { 
+                            for(let carrier of carrierArr) { %>
+                            <tr>
+                              <td><%= carrier.name%></td>
+                              <td><%= carrier.country%></td>
+                              <td><span class="badge badge-success"><%= carrier.status %></span></td>
+
+                            </tr>
+                            <% } } else { %>
+                            <tr>
+                              <td colspan="3"> No data available</td>
+                            </tr>
+                            <% } %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- /.card-footer -->
+
+                    <!-- /.card -->
+                  </div>
+                  <div class="col-md-6">
+                    <!-- Info Boxes Style 2 -->
+                    <!-- /.info-box -->
+                    <!-- /.card -->
+
+                    <!-- PRODUCT LIST -->
+                    <div class="card-header">
+                      <h3 class="card-title">New Shipper</h3>
+
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-primary btn-sm daterange-shipper" data-toggle="tooltip"
+                          title="Date range">
+                          <i class="far fa-calendar-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                      <div class="table-responsive new-shipper" style="overflow-y:auto;
+                  max-height:400px; overflow-x: hidden;">
+                        <table class="table m-0">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Country</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% if (shipperArr.length > 0) { 
+                              for(let shipper of shipperArr) { %>
+                            <tr>
+                              <td><%= shipper.name%></td>
+                              <td><%= shipper.country%></td>
+                              <td><span class="badge badge-success"><%= shipper.status %></span></td>
+
+                            </tr>
+                            <% } } else { %>
+                            <tr>
+                              <td colspan="3"> No data available</td>
+                            </tr>
+                            <% } %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- /.card-footer -->
+
+                    <!-- /.card -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- /.col -->
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">New RFQ List</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm daterange-rfq" data-toggle="tooltip"
+                      title="Date range">
+                      <i class="far fa-calendar-alt"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <div class="table-responsive new-rfq" style="overflow-y:auto;
+                  max-height:400px; overflow-x: hidden;">
+                    <table class="table m-0">
+                      <thead>
+                        <tr>
+                          <th>RFQ No</th>
+                          <th>Shipper Name</th>
+                          <th>Pickup & Delivery</th>
+                          <th>No of Quotes</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if(allRfq.length > 0) { 
+                          for(let rfq of allRfq) {%>
+                        <tr>
+                          <td><a href="/rfq/rfqDetails?id=<%= rfq.id %>"><%= rfq.rfqNo%></a></td>
+                          <td><%= rfq.shipperInfo.companyName%></td>
+                          <td><b>Pickup:</b> <%= rfq.pickupCountry%> <br>
+                            <b>Delivery:</b> <%= rfq.destinationCountry%></td>
+                          <td><%= rfq.rfqQuotePrice%></td>
+                          <td><span class="badge badge-success"><%= rfq.status %></span></td>
+                        </tr>
+                        <% } } else { %>
+                        <tr>
+                          <td colspan="3"> No data available</td>
+                        </tr>
+                        <% } %>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.table-responsive -->
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card-footer -->
+              </div>
+
+              <div class="card">
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">Top 10 Carriers in terms of Shipment</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <div class="table-responsive table-carrier" style="overflow-y:hidden;
+                   overflow-x: hidden;">
+                    <div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>
+                  </div>
+                  <!-- /.table-responsive -->
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card-footer -->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">New Shipment List</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm daterange-shipment" data-toggle="tooltip"
+                      title="Date range">
+                      <i class="far fa-calendar-alt"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <div class="table-responsive new-shipment" style="overflow-y:auto;
+                  max-height:400px; overflow-x: hidden;">
+                    <table class="table m-0">
+                      <thead>
+                        <tr>
+                          <th>Shipment No</th>
+                          <th>Shipper & Carrier</th>
+                          <th>Pickup & Delivery</th>
+                          <th>Price</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if(allShipment.length > 0) { 
+                          for(let shipment of allShipment) {%>
+                        <tr>
+                          <td><a href="/shipment/shipmentDetails?id=<%= shipment.id %>"><%= shipment.shipmentNo%></a>
+                          </td>
+                          <td><b>Shipper:</b> <%= shipment.shipperInfo.companyName%> <br>
+                            <b>Carrier:</b> <%= shipment.carrierInfo.companyName%></td>
+                          <td><b>Pickup:</b> <%= shipment.pickupCountry%> <br>
+                            <b>Delivery:</b> <%= shipment.destinationCountry%></td>
+                          <td>€<%= shipment.totalPrice%></td>
+                          <td><span class="badge badge-success"><%= shipment.shipmentStatus %></span></td>
+                        </tr>
+                        <% } } else { %>
+                        <tr>
+                          <td colspan="3"> No data available</td>
+                        </tr>
+                        <% } %>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.table-responsive -->
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card-footer -->
+              </div>
+
+              <div class="card">
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">Top 10 Shippers in terms of Shipment</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <div class="table-responsive table-shipper" style="overflow-y:hidden;
+                  overflow-x: hidden;">
+                    <div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>
+                  </div>
+                  <!-- /.table-responsive -->
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card-footer -->
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <% include ../layout/footer %>
+
+  </div>
+  <!-- ./wrapper -->
+
+
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../js/adminlte.min.js"></script>
+  <!-- page script -->
+  <!-- daterangepicker -->
+  <script src="../../plugins/moment/moment.min.js"></script>
+  <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+
+  <script type="text/javascript">
+
+    $(function () {
+
+      $.ajax({
+        url: "/getTopCarrier",
+        type: "POST",
+        data: {},
+        success: function (data, textStatus, jqXHR) {
+
+          $(".table-carrier").html(data);
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          // alert('error');
+          // toastr.error(data.msg)
+        }
+      });
+
+      $.ajax({
+        url: "/getTopShipper",
+        type: "POST",
+        data: {},
+        success: function (data, textStatus, jqXHR) {
+
+          $(".table-shipper").html(data);
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          // alert('error');
+          // toastr.error(data.msg)
+        }
+      });
+
+      $('.daterange-carrier').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: true,
+        ranges: {
+          'Today': [moment().startOf('day'), moment().endOf('day')],
+          'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate: moment()
+      }, function (start, end) {
+        
+        
+        var startTm = start.format('DD/MM/YYYY HH:mm:ss');
+        var endTm = end.format('DD/MM/YYYY HH:mm:ss');
+        console.log('startTm',startTm);
+        console.log('endTm',endTm);
+        $(".new-carrier").html('<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>');
+
+        $.ajax({
+          url: "/fetchNewCarrier",
+          type: "POST",
+          data: {startTm: startTm, endTm: endTm},
+          success: function (data, textStatus, jqXHR) {
+
+            $(".new-carrier").html(data);
+
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            // alert('error');
+            // toastr.error(data.msg)
+          }
+        });
+
+
+      })
+
+      $('.daterange-shipper').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: true,
+        ranges: {
+          'Today': [moment().startOf('day'), moment().endOf('day')],
+          'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate: moment()
+      }, function (start, end) {
+        
+        
+        var startTm = start.format('DD/MM/YYYY HH:mm:ss');
+        var endTm = end.format('DD/MM/YYYY HH:mm:ss');
+        $(".new-shipper").html('<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>');
+
+        $.ajax({
+          url: "/fetchNewShipper",
+          type: "POST",
+          data: {startTm: startTm, endTm: endTm},
+          success: function (data, textStatus, jqXHR) {
+
+            $(".new-shipper").html(data);
+
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            // alert('error');
+            // toastr.error(data.msg)
+          }
+        });
+
+
+      })
+
+      $('.daterange-rfq').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: true,
+        ranges: {
+          'Today': [moment().startOf('day'), moment().endOf('day')],
+          'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate: moment()
+      }, function (start, end) {
+        
+        
+        var startTm = start.format('DD/MM/YYYY HH:mm:ss');
+        var endTm = end.format('DD/MM/YYYY HH:mm:ss');
+        $(".new-rfq").html('<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>');
+
+        $.ajax({
+          url: "/fetchNewRfq",
+          type: "POST",
+          data: {startTm: startTm, endTm: endTm},
+          success: function (data, textStatus, jqXHR) {
+
+            $(".new-rfq").html(data);
+
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            // alert('error');
+            // toastr.error(data.msg)
+          }
+        });
+
+
+      })
+
+      $('.daterange-shipment').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: true,
+        ranges: {
+          'Today': [moment().startOf('day'), moment().endOf('day')],
+          'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate: moment()
+      }, function (start, end) {
+        
+        
+        var startTm = start.format('DD/MM/YYYY HH:mm:ss');
+        var endTm = end.format('DD/MM/YYYY HH:mm:ss');
+        $(".new-shipment").html('<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>');
+
+        $.ajax({
+          url: "/fetchNewShipment",
+          type: "POST",
+          data: {startTm: startTm, endTm: endTm},
+          success: function (data, textStatus, jqXHR) {
+
+            $(".new-shipment").html(data);
+
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            // alert('error');
+            // toastr.error(data.msg)
+          }
+        });
+
+
+      })
+
+    });
+
+  </script>
+
+</body>

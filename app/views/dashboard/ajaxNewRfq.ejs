@@ -1,0 +1,29 @@
+<table class="table m-0">
+  <thead>
+    <tr>
+      <th>RFQ No</th>
+      <th>Shipper Name</th>
+      <th>Pickup & Delivery</th>
+      <th>No of Quotes</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(allRfq.length > 0) { 
+      for(let rfq of allRfq) {%>
+    <tr>
+      <td><a href="/rfq/rfqDetails?id=<%= rfq.id %>"><%= rfq.rfqNo%></a></td>
+      <td><%= rfq.shipperInfo.companyName%></td>
+      <td><b>Pickup:</b> <%= rfq.pickupCountry%> <br>
+        <b>Delivery:</b> <%= rfq.destinationCountry%></td>
+      <td><%= rfq.rfqQuotePrice%></td>
+      <td><span class="badge badge-success"><%= rfq.status %></span></td>
+    </tr>
+    <% } } else { %>
+    <tr>
+      <td colspan="3"> No data available</td>
+    </tr>
+    <% } %>
+
+  </tbody>
+</table>

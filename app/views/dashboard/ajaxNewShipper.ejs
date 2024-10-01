@@ -1,0 +1,24 @@
+<table class="table m-0">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Country</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (shipperArr.length > 0) { 
+      for(let shipper of shipperArr) { %>
+    <tr>
+      <td><%= shipper.name%></td>
+      <td><%= shipper.country%></td>
+      <td><span class="badge badge-success"><%= shipper.status %></span></td>
+
+    </tr>
+    <% } } else { %>
+    <tr>
+      <td colspan="3"> No data available</td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

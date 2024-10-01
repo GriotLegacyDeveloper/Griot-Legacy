@@ -1,0 +1,146 @@
+<% layout('layout/afterlogin') -%>
+
+  <style>
+    #valid {
+      width: 50%;
+    }
+  </style>
+
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+      <!-- Navbar -->
+      <% include ../layout/navbar %>
+
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <% include ../layout/sidebar %>
+
+          <!-- Content Wrapper. Contains page content -->
+          <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h1>Add Advertsement</h1>
+                  </div>
+                </div>
+              </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+              <div class="container-fluid">
+                <div class="row">
+                  <!-- left column -->
+                  <div class="col-md-12">
+                    <!-- jquery validation -->
+                    <div class="card card-primary">
+
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                      <form role="form" id="advertisement" method="post" action="/content/advertisementAdd"
+                        enctype="multipart/form-data">
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Title</label>
+                            <input type="text" name="title" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Title" %>">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Company name:</label>
+                            <input type="text" name="company_name" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Company name" %>">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Contact person:</label>
+                            <input type="text" name="contact_person" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Contact person" %>">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Email address :</label>
+                            <input type="email" name="email_address" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Email address" %>">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Phone number :</label>
+                            <input type="text" name="phone_number" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Phone number" %>">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Physical address :</label>
+                            <input type="text" name="address" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Physical address" %>">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Purpose of advertisement:</label>
+                            <input type="text" name="purpose_of_advertisement" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Purpose of advertisement"%>">
+                          </div> 
+                         
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Target Audience:</label>
+                            <input type="text" name="target_audience" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Target Audience"%>">
+                          </div> 
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Link</label>
+                            <input type="url" name="link" class="form-control" id="exampleInputEmail1"
+                              placeholder="Enter Link" %>">
+                          </div>
+                          <div>
+                            <label>Dates for advertising campaign</label>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Valid From</label>
+                              <input type="date" name="validFrom" class="form-control" id="valid">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Valid Till</label>
+                              <input type="date" name="validTill" class="form-control" id="valid">
+                            </div>
+                          </div>
+                         
+
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Upload Image</label>
+                            <input type="file" name="image" class="form-control" id="exampleInputEmail1">
+                          </div>
+                        </div>
+
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.card -->
+                  </div>
+                  <!--/.col (left) -->
+                </div>
+                <!-- /.row -->
+              </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+          </div>
+          <!-- /.content-wrapper -->
+          <% include ../layout/footer %>
+
+    </div>
+    <!-- ./wrapper -->
+
+
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap-notify.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="../../plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../../plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../js/adminlte.min.js"></script>
+
+
+  </body>
