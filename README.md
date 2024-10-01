@@ -1,1 +1,1 @@
-# Griot-Legacy
+# GriotLegacy Api
