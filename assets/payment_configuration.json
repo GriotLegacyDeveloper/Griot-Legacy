@@ -1,0 +1,10 @@
+{
+  "provider": "apple_pay",
+  "data": {
+    "merchantIdentifier": "merchant.com.griotLegacySocialMediaApp",
+    "countryCode": "US",
+    "currencyCode": "USD",
+    "supportedNetworks": ["visa", "masterCard", "amex"],
+    "merchantCapabilities": ["3DS", "debit", "credit"]
+  }
+}

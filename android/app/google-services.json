@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "620010014992",
+    "project_id": "griot-legacy-adc56",
+    "storage_bucket": "griot-legacy-adc56.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620010014992:android:5389832a1be70bfb2bbd95",
+        "android_client_info": {
+          "package_name": "com.griotLegacySocialMediaApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620010014992-dbg1r82cta3f90ecilmvpct38effvpm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4sfU-NOZaoaj3facIOD3ZDsckhVDiMRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620010014992-dbg1r82cta3f90ecilmvpct38effvpm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
