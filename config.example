@@ -1,0 +1,46 @@
+var config = {
+    port: 2107,
+    serverhost: 'https://nodeserver.brainiuminfotech.com',
+    environment: 'development', //development,staging,live
+    secretKey: 'hyrgqwjdfbw4534efqrwer2q38945765',
+    emailConfig: {
+        MAIL_USERNAME: "liveapp.brainium@gmail.com",
+        MAIL_PASS: "YW5kcm9pZDIwMTY"
+    },
+    emailTemplete: {
+        logoUrl: "https://logo.com/",
+        appUrl: "https://app.com/",
+        helpUrl: "https://help.com/",
+        facebookUrl: "https://facebook.com/",
+        twitterUrl: "https://twitter.com",
+        instagramUrl: "https://instagram.com/",
+        snapchatUrl: "https://snapchat.com/",
+        linkedinUrl: "https://www.linkedin.com",
+        youtubeUrl: "https://www.youtube.com",
+        loginUrl: "https://login.com/",
+        androidUrl: "https://android.com/",
+        iosUrl: "https://ios.com/",
+    },
+
+    // stripe test key
+    stripe: {
+        publishableKey: "pk_test_51N1xgHKwvFDB6eSfrAHsKGiAsXE4lbYHjDejkvUdqwq08PQPsvXnkkVLmfvjMXbXv9ORaZxUd0M8xLiLoloVNEYM00rESJl7KM",
+        secretKey: "sk_test_51N1xgHKwvFDB6eSfdrdaYI1QnafiG6Z37CvxyavP56t9noPGu2Zr9ln1VERhSKiohBfLSzOSvOPKx71ZGvpWUJ8g00njba5NEj",
+        CURRENCY: "usd",
+        defaultPercentage: 20
+    },
+
+    // Stripe live key
+    // stripe: {
+    //     publishableKey: "pk_live_51N1xgHKwvFDB6eSfb0Orhd5BBoKDRXWnc0YIUUVlQyIIZ0Vpr4Bu7OBd09oiWZA9uqQUHiwZvsDkPm2fxGYMtqhs0039dO71lz",
+    //     secretKey: "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"
+    // }
+
+    // paypal sandbox
+    paypal: {
+        clientId: "ATt4ogKr7VrbWTTCUTKBMW3f0KypTFYkEtIXF2jdqxmEg_lVHpqV5bfL57U_4Hx-6kQy8TIBwdBnv8To",
+        secret: "EJGNlu7aFAUNhIUPZUELD_chTZF2CF2DjKK8PjEf1vQy-kUalHabC3MZeW0SrrJ7pwYifE8Xv-RX90T3"
+    }
+}
+
+module.exports = config;
