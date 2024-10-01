@@ -1,0 +1,10 @@
+{
+    "api_base_url": "https://nodeserver.mydevfactory.com:2109/api/",
+    "asset_image_path": "assets/images/",
+    "firebase_options": {
+        "appId": "1:1017985017298:android:5fdacfa5fe73e86aeed40b",
+        "apiKey": "AIzaSyCpKTn7gNG2Y4CyEoyhBtiXvHwV88X8b4U",
+        "projectId": "griot-legacy",
+        "messagingSenderId": "Griot-Legacy"
+    }
+}
